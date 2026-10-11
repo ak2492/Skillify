@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<style>
+  body { font-family: system-ui, sans-serif; width: 260px; margin: 0; padding: 12px; font-size: 13px; color: #0f172a; }
+  h1 { font-size: 14px; margin: 0 0 8px; }
+  p { margin: 6px 0; color: #475569; }
+  button { background: #4f46e5; color: #fff; border: none; border-radius: 8px; padding: 7px 12px; font-weight: 700; cursor: pointer; width: 100%; }
+  button:hover { background: #4338ca; }
+  .note { font-size: 11px; color: #94a3b8; margin-top: 8px; }
+</style>
+</head>
+<body>
+  <h1>Skillify — Skill Injector</h1>
+  <p>Use the floating <b>S</b> button on the page to add &amp; inject skills.</p>
+  <p>If you don't see it: <b>reload this tab</b> (required after install/update).</p>
+  <button id="ping" type="button">Show / re-inject S button</button>
+  <p class="note">Content scripts can't run on chrome://, Chrome Web Store, or New Tab pages. Works on ChatGPT, Gemini, Claude, Gmail, any page with a text box.</p>
+  <script src="action_popup.js"></script>
+</body>
+</html>

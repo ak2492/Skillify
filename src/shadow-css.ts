@@ -1,0 +1,185 @@
+// Single source of truth for Shadow DOM styles.
+// IMPORTANT: manifest content_scripts.css CANNOT pierce Shadow DOM,
+// so this string is injected as <style> inside the shadow root (see ui.ts).
+// Keep in sync with content.css.
+export const SHADOW_CSS = `
+.skillify-wrap { all: initial; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
+.skillify-fab {
+  position: fixed;
+  left: calc(100vw - 72px);
+  top: calc(100vh - 72px);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: #4f46e5;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1;
+  cursor: grab;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
+  z-index: 2147483647;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+.skillify-fab:hover { transform: scale(1.05); background: #4338ca; }
+.skillify-fab:active { cursor: grabbing; }
+.skillify-count {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  box-sizing: border-box;
+  border-radius: 999px;
+  background: #22c55e;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 20px;
+  text-align: center;
+  border: 2px solid #fff;
+  pointer-events: none;
+}
+.skillify-count[hidden] { display: none; }
+.skillify-popup {
+  position: fixed;
+  width: 320px;
+  max-width: calc(100vw - 16px);
+  max-height: 380px;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  color: #0f172a;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  z-index: 2147483647;
+  overflow: hidden;
+  font-size: 14px;
+}
+.skillify-popup[hidden] { display: none; }
+.skillify-popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+.skillify-add-btn {
+  border: 1px solid #4f46e5;
+  background: #eef2ff;
+  color: #4f46e5;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 4px 10px;
+  cursor: pointer;
+  font-size: 13px;
+}
+.skillify-add-btn:hover { background: #e0e7ff; }
+.skillify-clear-btn {
+  border: none;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+  font-size: 12px;
+}
+.skillify-clear-btn:hover { color: #0f172a; text-decoration: underline; }
+.skillify-form { padding: 10px; border-bottom: 1px solid #e2e8f0; background: #fff; }
+.skillify-form[hidden] { display: none; }
+.skillify-form-title { font-weight: 700; margin-bottom: 6px; font-size: 13px; }
+.skillify-name, .skillify-desc {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 6px 8px;
+  font-size: 13px;
+  margin-bottom: 6px;
+  font-family: inherit;
+  color: #0f172a;
+  background: #fff;
+}
+.skillify-desc { resize: vertical; min-height: 56px; }
+.skillify-form-error { color: #dc2626; font-size: 12px; margin-bottom: 6px; }
+.skillify-form-error[hidden] { display: none; }
+.skillify-form-actions { display: flex; gap: 8px; }
+.skillify-save {
+  background: #4f46e5; color: #fff; border: none; border-radius: 8px;
+  padding: 6px 12px; font-weight: 700; cursor: pointer;
+}
+.skillify-save:hover { background: #4338ca; }
+.skillify-cancel {
+  background: #f1f5f9; color: #0f172a; border: 1px solid #cbd5e1; border-radius: 8px;
+  padding: 6px 12px; cursor: pointer;
+}
+.skillify-list { overflow-y: auto; max-height: 240px; padding: 4px 0; }
+.skillify-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #f1f5f9;
+  outline: none;
+}
+.skillify-row:hover, .skillify-row:focus { background: #f8fafc; }
+.skillify-tick {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #cbd5e1;
+  background: #fff;
+  margin-top: 2px;
+  position: relative;
+  box-sizing: border-box;
+}
+.skillify-row.selected .skillify-tick { background: #22c55e; border-color: #22c55e; }
+.skillify-row.selected .skillify-tick::after {
+  content: "\\2713";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+}
+.skillify-text { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; }
+.skillify-name-label { font-weight: 700; color: #0f172a; word-break: break-word; }
+.skillify-desc-preview { color: #64748b; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.skillify-row-actions { display: none; gap: 2px; }
+.skillify-row:hover .skillify-row-actions { display: flex; }
+.skillify-edit, .skillify-del {
+  border: none; background: transparent; cursor: pointer; font-size: 14px; padding: 2px 4px; border-radius: 6px;
+}
+.skillify-edit:hover, .skillify-del:hover { background: #e2e8f0; }
+.skillify-empty { padding: 16px; text-align: center; color: #64748b; }
+.skillify-empty[hidden] { display: none; }
+.skillify-hint { padding: 8px 10px; font-size: 11px; color: #94a3b8; border-top: 1px solid #f1f5f9; }
+.skillify-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  background: #0f172a;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  z-index: 2147483647;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+.skillify-toast[hidden] { display: none; }
+`;
